@@ -153,7 +153,7 @@ int main()
 	{
 		cout << "請輸入OT距離 :";
 		cin >> ot_d;
-		cout << "請輸入OM方位角";
+		cout << "請輸入OM方位角 :";
 		cin >> om_a;
 		cout << "請輸入OM距離 :";
 		cin >> om_d;
@@ -234,10 +234,14 @@ int main()
 
 			if (angle < 0)
 				angle = 6400 + angle;
-
+			double ang = (angle - mt_a);
+			if (ang < 0)
+			{
+				ang = ang + 6400;
+			}
 			distant = pow(pow(x, 2) + pow(y, 2), 0.5);
 
-			List.NewCR(distant, angle, angle - mt_a, x, y);
+			List.NewCR(distant, angle, ang, x, y);
 			List.PrintCR();
 			//
 		}
@@ -276,10 +280,15 @@ int main()
 
 			if (angle < 0)
 				angle = 6400 + angle;
+			double ang = (angle - mt_a);
+			if (ang < 0)
+			{
+				ang = ang + 6400;
+			}
 
 			distant = pow(pow(x, 2) + pow(y, 2), 0.5);
 
-			List.NewCR(distant, angle, angle - mt_a, x, y);
+			List.NewCR(distant, angle, ang, x, y);
 			List.PrintCR();
 
 		}
@@ -301,6 +310,6 @@ void OB(Obser_value* p, double OT_dist)
 	cin >> dir;
 	p->Ob_dir = -OT_dist / 1000 * dir;
 	// bracketing method
-	p->Ob_dist = 100 * pow(2, (ceil(OT_dist / 1000) - 1)) * (-dist / abs(dist)) / time;
+	p->Ob_dist = 100 * pow(2, (ceil(OT_dist / 1000) - 1)) * (-dist / abs(dist)) / (pow(2,time-1));
 	time++;
 }
